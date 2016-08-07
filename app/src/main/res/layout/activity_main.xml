@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.ctpsarah.feicon.QuizActivity"
+android:padding="16dp"
+android:background="#ffffff"
+    android:id="@+id/baseLayout"
+    android:textAlignment="center">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/quizBar">
+
+        <CheckBox
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/questionBtn1"
+            android:text="Btn1"
+            android:layout_above="@+id/questionBtn2"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000000"/>
+
+        <CheckBox
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/questionBtn2"
+            android:text="Btn1"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/questionBtn1"
+            android:layout_alignStart="@+id/questionBtn1"
+            android:textColor="#000000"/>
+
+        <CheckBox
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/questionBtn3"
+            android:text="Btn1"
+            android:layout_below="@+id/questionBtn2"
+            android:layout_alignLeft="@+id/questionBtn2"
+            android:layout_alignStart="@+id/questionBtn2"
+            android:textColor="#000000"
+            android:checked="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/label"
+            android:layout_above="@+id/questionBtn1"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:paddingBottom="16dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottomBar">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Não"
+            android:id="@+id/noBtn"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sim"
+            android:id="@+id/yesBtn"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/iftm_with_words"
+        android:contentDescription="@string/logo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <WebView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/webView" />
+
+</RelativeLayout>
