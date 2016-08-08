@@ -15,6 +15,13 @@ android:background="#ffffff"
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/iftm_with_words"
+        android:contentDescription="@string/logo" />
+
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -93,16 +100,6 @@ android:background="#ffffff"
     </RelativeLayout>
 
 </LinearLayout>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/iftm_with_words"
-        android:contentDescription="@string/logo"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <WebView
         android:layout_width="0dp"

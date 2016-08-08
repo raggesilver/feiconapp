@@ -1,10 +1,10 @@
 package com.example.ctpsarah.feicon;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.provider.Settings.Secure;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     int questionAnsw;
     int isIFTM;
     int type;
+    String id;
 
     int lastClicked;
 
@@ -38,31 +41,40 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 //test("App", "Gostou do app?", view);
-                if(view.getUrl().toLowerCase().endsWith("quizz")){
-
+                if(view.getUrl().toLowerCase().endsWith("quiz")){
+                    report();
                     startQuiz();
                 } else if(view.getUrl().toLowerCase().endsWith("app")){
-                    Intent app = new Intent(MainActivity.this.getApplicationContext(), QuizActivity.class);
-                    startActivity(app);
-                    finish();
+                    moveOn();
+                } else {
+                    moveOn();
                 }
             }
         };
 
-        String appKey = "123456789";
+        String appKey = "BR1QEJ5CWPNA";
 
         WebView _web = (WebView) findViewById(R.id.webView);
         _web.setWebViewClient(mWebViewClient);
-        _web.loadUrl("http://172.16.21.203/app_server/index.php?key=" + appKey);
+        _web.loadUrl("http://172.16.21.203/app_server/index.php?key=" + appKey + "&id=" + report());
 
         Button btn = (Button) findViewById(R.id.yesBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(checkboxIsNeeded() && !validateCheckboxes()){
+                    showToast("Por favor marque 1 (uma) opção.");
+                    return;
+                }
+
                 if(currentStep == 0){
                     currentStep = 1;
                     knowsEpigenetics = 1;
+                } else if ( currentStep > 3) { // Special number for after thank page
+                    report();
                 }
+                showToast(""+currentStep);
                 lastClicked = 1;
                 advance();
             }
@@ -72,11 +84,19 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(checkboxIsNeeded() && !validateCheckboxes()){
+                    showToast("Por favor marque 1 (uma) opção.");
+                    return;
+                }
+
                 if(currentStep == 0){
                     knowsEpigenetics = 0;
                 }
-                if(currentStep == 3){
+                if(currentStep == 3){ // Is not from IFTM
                     currentStep++;
+                    type = 0;
+                    isIFTM = 0;
                 }
                 lastClicked = 0;
                 advance();
@@ -126,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         check3.setVisibility(View.INVISIBLE);
 
         TextView txt = (TextView) findViewById(R.id.label);
-        txt.setText("Epigenética é a comprovação científica da frase: \"você é o que você come\"");
+        txt.setText("A palavra EPIGENÉTICA quer dizer “além da genética”. Esse termo foi usado inicialmente pelo biólogo Conrad H. Waddington em 1942, para se referir a alterações na expressão gênica herdável, sem, entretanto, haver mudanças na sequência do DNA (Daniel, M.; Tollefsbol, T., 2015).");
 
         Button yesBtn = (Button) findViewById(R.id.yesBtn);
         yesBtn.setText("Próximo");
@@ -224,9 +244,10 @@ public class MainActivity extends AppCompatActivity {
         Button btn = (Button) findViewById(R.id.yesBtn);
 
         switch (currentStep) {
-            case 0: btn.setBackgroundColor(Color.BLUE);
+            case 0: btn.setBackgroundColor(Color.BLUE); // receive first answer (knows what epigenetics is)
                     quizSecond();
                     currentStep++;
+                    knowsEpigenetics = 0;
                     break;
             case 1: btn.setBackgroundColor(Color.GREEN);
                     quizThird();
@@ -241,8 +262,72 @@ public class MainActivity extends AppCompatActivity {
                     isIFTM = 1;
                     currentStep++;
                     break;
-            default: thankPage();
+            default:if(isIFTM == 1){
+                        CheckBox check1 = (CheckBox) findViewById(R.id.questionBtn1);
+                        CheckBox check2 = (CheckBox) findViewById(R.id.questionBtn2);
+                        // CheckBox check3 = (CheckBox) findViewById(R.id.questionBtn3);
+                        // no need to check check3
+
+                        if(check1.isChecked()){
+                            type = 1; // IFTM high school student
+                        } else if (check2.isChecked()) {
+                            type = 2; // IFTM superior student
+                        } else {
+                            type = 3; // Teacher/works at IFTM
+                        }
+                    }
+                    thankPage();
         }
+    }
+
+    public void moveOn() {
+        Intent app = new Intent(MainActivity.this.getApplicationContext(), QuizActivity.class);
+        startActivity(app);
+        finish();
+    }
+
+    public boolean checkboxIsNeeded() {
+        return currentStep == 2 || currentStep == 4;
+    }
+
+    public boolean validateCheckboxes() {
+        CheckBox check1 = (CheckBox) findViewById(R.id.questionBtn1);
+        CheckBox check2 = (CheckBox) findViewById(R.id.questionBtn2);
+        CheckBox check3 = (CheckBox) findViewById(R.id.questionBtn3);
+
+        boolean c1, c2, c3;
+
+        c1 = check1.isChecked();
+        c2 = check2.isChecked();
+        c3 = check3.isChecked();
+
+        // This thing is supposed to check if at least one and no more than one
+        // check boxes are checked and return true if so
+        return ((c1 && !c2 && !c3) || (c2 && !c1 && !c3) || (c3 && !c2 && !c1));
+
+        /*if (c1 && !c2 && !c3){
+            return true;
+        } else if (c2 && !c1 && !c3) {
+            return true;
+        } else if (c3 && !c2 && !c1) {
+            return true;
+        } else return false;*/
+
+
+    }
+
+    public String report() {
+        id = Secure.getString(MainActivity.this.getApplicationContext().getContentResolver(),Secure.ANDROID_ID);
+        // showToast(id);
+        return id;
+    }
+
+    public void showToast(String text){
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
 }
