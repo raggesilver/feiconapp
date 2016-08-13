@@ -8,82 +8,43 @@
     android:paddingTop="0dp"
     android:background="#ffffff">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1">
+        android:layout_weight="1">
 
-        <RelativeLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageView"
+            android:paddingTop="5dp">
 
-            <RadioButton
-                android:layout_gravity="center"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/questionBtn1"
-                android:text="Btn1"
-                android:layout_above="@+id/questionBtn2"
-                android:layout_centerHorizontal="true" />
+                android:text="Epigenética é um termo usado na biologia para se referir a características de organismos unicelulares e multicelulares (como as modificações de cromatina e DNA) que são estáveis ao longo de diversas divisões celulares mas que não envolvem mudanças na sequência de DNA do organismo.[1]
+A herança epigenética é a transmissão de experiências ocorridas com os pais para os filhos e que não ocorre através do DNA. De acordo com os conceitos tradicionais, quando um embrião é formado, seu epigenoma é completamente apagado, e reescrito a partir das informações que estão no seu DNA. A exceção é que, para alguns genes, marcas epigenéticas são mantidas, e passadas de uma geração para a geração seguinte.[2]
+Estas mudanças epigenéticas desempenham um importante papel no processo de diferenciação celular, permitindo que as células mantenham características estáveis diferentes apesar de conterem o mesmo material genômico.
+Epigenética é um termo usado na biologia para se referir a características de organismos unicelulares e multicelulares (como as modificações de cromatina e DNA) que são estáveis ao longo de diversas divisões celulares mas que não envolvem mudanças na sequência de DNA do organismo.[1]
+A herança epigenética é a transmissão de experiências ocorridas com os pais para os filhos e que não ocorre através do DNA. De acordo com os conceitos tradicionais, quando um embrião é formado, seu epigenoma é completamente apagado, e reescrito a partir das informações que estão no seu DNA. A exceção é que, para alguns genes, marcas epigenéticas são mantidas, e passadas de uma geração para a geração seguinte.[2]
+Estas mudanças epigenéticas desempenham um importante papel no processo de diferenciação celular, permitindo que as células mantenham características estáveis diferentes apesar de conterem o mesmo material genômico."
+                android:textColor="#000000"
+                android:id="@+id/textView" />
+        </ScrollView>
 
-            <RadioButton
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/questionBtn2"
-                android:text="Btn1"
-                android:layout_centerVertical="true"
-                android:layout_alignLeft="@+id/questionBtn1"
-                android:layout_alignStart="@+id/questionBtn1" />
-
-            <RadioButton
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button3"
-                android:text="Btn1"
-                android:layout_below="@+id/questionBtn2"
-                android:layout_alignLeft="@+id/questionBtn2"
-                android:layout_alignStart="@+id/questionBtn2" />
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:id="@+id/imageView"
-                android:src="@drawable/iftm"
-                android:contentDescription="@string/logo"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:orientation="horizontal"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="100dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/iftm"
+            android:contentDescription="@string/logo"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="#ffffff" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Não"
-                android:id="@+id/noBtn"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sim"
-                android:id="@+id/yesBtn"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
