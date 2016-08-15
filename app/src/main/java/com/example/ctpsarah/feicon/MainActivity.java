@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         WebView _web = (WebView) findViewById(R.id.webView);
         _web.setWebViewClient(mWebViewClient);
 
-        _web.loadUrl("http://192.168.1.10/app_server/index.php?key=" + appKey + "&id=" + report());
+        _web.loadUrl("http://feiconapp.esy.es/index.php?key=" + appKey + "&id=" + report());
 
         Button btn = (Button) findViewById(R.id.yesBtn);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         Button noBtn = (Button) findViewById(R.id.noBtn);
         noBtn.setVisibility(View.INVISIBLE);
 
-        showToast(""+currentStep);
+        //showToast(""+currentStep);
     }
 
     public void advance() {
@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveOn() {
-        Intent app = new Intent(MainActivity.this.getApplicationContext(), QuizActivity.class);
+        Intent app = new Intent(MainActivity.this.getApplicationContext(), Gallery.class);
         startActivity(app);
         finish();
     }
@@ -393,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
         String _data = _knows + _questionAnsw + _isIFTM + _type + _id;
 
         isSubmitting = true;
-        web.loadUrl("http://192.168.1.10/app_server/submit.php?key=" + "BR1QEJ5CWPNA" + "&answ=" + _data);
+        web.loadUrl("http://feiconapp.esy.es/submit.php?key=" + "BR1QEJ5CWPNA" + "&answ=" + _data);
 
     }
 
